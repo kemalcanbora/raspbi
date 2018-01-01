@@ -4,21 +4,22 @@ from path import Path
 from pprint import pprint
 import nltk
 import  numpy
-documents = []
-documents_dir = Path('bitcoin predictions_txt')
+
 import pandas as pd
 
+def summ(doc_dir_path,ozetlenecek_txt):
+    myfile=ozetlenecek_txt
+    documents = []
+    documents_dir = Path(doc_dir_path)
+    for file in documents_dir.files('*.txt'):
+        with file.open(mode='rt', encoding='utf-8') as fp:
+            documents.append(fp.readlines())
+    lxr = LexRank(documents, stopwords=STOPWORDS['en'])
 
-for file in documents_dir.files('*.txt'):
-    with file.open(mode='rt', encoding='utf-8') as fp:
-        documents.append(fp.readlines())
-lxr = LexRank(documents, stopwords=STOPWORDS['en'])
-
-myfile="/home/kb/PycharmProjects/raspbi/bitcoin predictions_txt/A Survey on Security and Privacy Issues of Bitcoin.pdf.txt"
-with open (myfile, "r") as myfile:
-    sentences = myfile.readlines()
+    with open (myfile, "r") as myfile:
+        sentences = myfile.readlines()
 
 
-# sentences = nltk.sent_tokenize(sentences)
-summary = lxr.get_summary(sentences, summary_size=10, threshold=.1)
-pprint(summary)
+    # sentences = nltk.sent_tokenize(sentences)
+    summary = lxr.get_summary(sentences, summary_size=15, threshold=.1)
+    return (summary)
