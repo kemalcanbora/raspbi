@@ -1,6 +1,7 @@
 def send_email(user, pwd, recipient, subject, body):
     import smtplib
 
+
     gmail_user = user
     gmail_pwd = pwd
     FROM = user
@@ -24,8 +25,8 @@ def send_email(user, pwd, recipient, subject, body):
     except:
         print ("failed to send mail")
 
-send_email(user="tuulrik",
-           pwd="godneverdie0",
+send_email(user=" ",
+           pwd=" ",
            recipient="kemalcanbora@gmail.com",
            subject="test-pi",
            body="test mesaj")
