@@ -5,6 +5,7 @@ from pdfminer.layout import LAParams
 import io,os
 
 def pdfparser(data,pdf_name,dic_q_key):
+    print(data)
     fp = open(data, 'rb')
     rsrcmgr = PDFResourceManager()
     retstr = io.StringIO()
@@ -14,16 +15,22 @@ def pdfparser(data,pdf_name,dic_q_key):
     # Create a PDF interpreter object.
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     # Process each page contained in the document.
-    PDFPage.get_pages(fp)
+    try:
+        PDFPage.get_pages(fp)
 
-    for page in PDFPage.get_pages(fp):
-        interpreter.process_page(page)
-        data = retstr.getvalue()
+        for page in PDFPage.get_pages(fp):
+            interpreter.process_page(page)
+            data = retstr.getvalue()
 
-    if not os.path.exists(dic_q_key):
-        os.makedirs(dic_q_key)
+        dic_q_key=dic_q_key.replace(" ","_")
+        dic_q_key=dic_q_key+"_txt"
 
+        if not os.path.exists(dic_q_key):
+            os.makedirs(dic_q_key)
 
-    with open(dic_q_key+'/'+pdf_name+'.txt', "w") as text_file:
-        text_file.write(data)
-
+        pdf_name=pdf_name.replace(" ","_")
+        pdf_name = pdf_name.replace(".pdf", ".txt")
+        with open(dic_q_key+'/'+pdf_name, "w") as text_file:
+            text_file.write(data)
+    except:
+        pass

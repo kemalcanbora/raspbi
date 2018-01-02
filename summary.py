@@ -1,11 +1,7 @@
 from lexrank import LexRank
 from lexrank.mappings import STOPWORDS
 from path import Path
-from pprint import pprint
-import nltk
-import  numpy
 
-import pandas as pd
 
 def summ(doc_dir_path,ozetlenecek_txt):
     myfile=ozetlenecek_txt
