@@ -4,14 +4,25 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
 
-doc = SimpleDocTemplate("form_letter.pdf", pagesize=letter,rightMargin=72, leftMargin=72,topMargin=72, bottomMargin=18)
+doc = SimpleDocTemplate("form_letter.pdf",
+                        pagesize=letter,
+                        rightMargin=72,
+                        leftMargin=72,
+                        topMargin=72,
+                        bottomMargin=18
+                        )
 
 Story = []
 logo = "python.png"
 issueNum = 12
 
 def create_pdf_page(full_name,address_parts,metin):
+
+
     formatted_time = time.ctime()
     # address_parts = ["411 State St.", "Marshalltown, IA 50158"]
 
@@ -68,6 +79,6 @@ def create_pdf_page(full_name,address_parts,metin):
     ptext = '<font size=9>Howard.ai</font>'
     Story.append(Paragraph(ptext, styles["Normal"]))
     Story.append(Spacer(1, 12))
-    doc.build(Story)
 
+    doc.build(Story)
 
