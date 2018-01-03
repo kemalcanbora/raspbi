@@ -21,6 +21,15 @@ def pdfparser(data,pdf_name,dic_q_key):
         for page in PDFPage.get_pages(fp):
             interpreter.process_page(page)
             data = retstr.getvalue()
+            data=data.replace("ﬁ","fi")
+            data=data.replace("ﬃ","fi")
+            data=data.replace("ﬀe","fi")
+            data=data.replace("ﬀa","fi")
+            data = data.replace("ﬀu", "fi")
+            data = data.replace("diﬀerent", "different")
+            data = data.replace("reﬂects", "reflects")
+            data=data.replace("diﬃculty","difficulty")
+
 
         dic_q_key=dic_q_key.replace(" ","_")
         dic_q_key=dic_q_key+"_txt"

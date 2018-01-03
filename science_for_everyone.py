@@ -2,13 +2,13 @@ from pdf_Read import pdfparser
 from arxiv_f import get_information_arxiv
 from send_mail import send_email
 import os
-from lex_sum import lex_summary
+from lex_sum import lex_summary_2
 from pprint import pprint
 from create_pdf import create_pdf_page
 import pandas as pd
 
 def main(q_key):
-    get_information_arxiv(q_key=q_key)
+    get_information_arxiv(q_key=q_key,f_max_results=10)
     q_key=q_key.replace(" ","_")
     arr = os.listdir(q_key)
 
@@ -25,9 +25,8 @@ def main(q_key):
     path_z=str(q_key+"_txt")
 
     for i,item in enumerate(arr_txt):
-        print("buradayımmm ülkücü")
-        ozet=lex_summary(file=path_z+"/"+arr_txt[i])
-        pprint(ozet)
+        ozet=lex_summary_2(file_path=path_z+"/"+arr_txt[i])
+        print(ozet)
         pdf_link=str(q_key+"_txt"+"/"+arr_txt[i])
         liste.append(ozet)
         pdf_link_lst.append(pdf_link)
@@ -38,16 +37,16 @@ def main(q_key):
                             })
     print(dataframe)
 
-    create_pdf_page(full_name="deneme",address_parts=["kemalcanbora@gmail.com"],metin=dataframe)
+    create_pdf_page(full_name=q_key,address_parts=["kemalcanbora@gmail.com"],metin=dataframe)
 
 
     send_email(
             gmail_user="tuulrik@gmail.com",
-            gmail_pwd=" ",
+            gmail_pwd="",
             send_to="kemalcanbora@gmail.com",
             subject= q_key+" özetler",
             text=" Akademik özet geç ",
             path="form_letter.pdf"
             )
 
-main(q_key="bitcoin")
+main(q_key="sentiment analysis")
