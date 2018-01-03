@@ -17,24 +17,26 @@ def pdfparser(data,pdf_name,dic_q_key):
     # Create a PDF interpreter object.
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     # Process each page contained in the document.
-    # try:
-    PDFPage.get_pages(fp)
+    try:
+        PDFPage.get_pages(fp)
 
-    for page in PDFPage.get_pages(fp):
-        interpreter.process_page(page)
-        data = retstr.getvalue()
-        data=data.replace("diﬃculty","difficulty")
-        data = unicodedata.normalize("NFKD", data)
-    #
-    dic_q_key=dic_q_key.replace(" ","_")
-    dic_q_key=dic_q_key+"_txt"
+        for page in PDFPage.get_pages(fp):
+            interpreter.process_page(page)
+            data = retstr.getvalue()
+            data=data.replace("diﬃculty","difficulty")
+            data = unicodedata.normalize("NFKD", data)
+        #
+        dic_q_key=dic_q_key.replace(" ","_")
+        dic_q_key=dic_q_key+"_txt"
 
-    if not os.path.exists(dic_q_key):
-        os.makedirs(dic_q_key)
+        if not os.path.exists(dic_q_key):
+            os.makedirs(dic_q_key)
 
-    pdf_name=pdf_name.replace(" ","_")
-    pdf_name = pdf_name.replace(".pdf", ".txt")
+        pdf_name=pdf_name.replace(" ","_")
+        pdf_name = pdf_name.replace(".pdf", ".txt")
 
-    with open(dic_q_key+'/'+pdf_name, "w") as text_file:
-        text_file.write(data)
+        with open(dic_q_key+'/'+pdf_name, "w") as text_file:
+            text_file.write(data)
+    except:
+        pass
 
