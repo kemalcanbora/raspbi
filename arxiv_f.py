@@ -1,8 +1,11 @@
 import arxiv
 import os,shutil
 
-def get_information_arxiv(q_key):
-    keys=arxiv.query(search_query=q_key,max_results=3)
+def get_information_arxiv(q_key,f_max_results):
+
+    keys=arxiv.query(search_query=q_key,
+                     max_results=f_max_results,
+                    )
 
     # print(keys)
     q_key=q_key.replace(" ","_")
