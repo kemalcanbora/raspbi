@@ -3,6 +3,7 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
 from pdfminer.layout import LAParams
 import io,os,sys
+import unicodedata
 
 
 def pdfparser(data,pdf_name,dic_q_key):
@@ -22,16 +23,9 @@ def pdfparser(data,pdf_name,dic_q_key):
     for page in PDFPage.get_pages(fp):
         interpreter.process_page(page)
         data = retstr.getvalue()
-        data=data.replace("ﬁ","fi")
-        data=data.replace("ﬃ","fi")
-        data=data.replace("ﬀe","fi")
-        data=data.replace("ﬀa","fi")
-        data = data.replace("ﬀu", "fi")
-        data = data.replace("diﬀerent", "different")
-        data = data.replace("reﬂects", "reflects")
         data=data.replace("diﬃculty","difficulty")
-
-
+        data = unicodedata.normalize("NFKD", data)
+    #
     dic_q_key=dic_q_key.replace(" ","_")
     dic_q_key=dic_q_key+"_txt"
 
@@ -40,12 +34,7 @@ def pdfparser(data,pdf_name,dic_q_key):
 
     pdf_name=pdf_name.replace(" ","_")
     pdf_name = pdf_name.replace(".pdf", ".txt")
-    sistem=sys.stdout.encoding
-    print(sistem)
-    with open(dic_q_key+'/'+pdf_name, "w") as text_file:
-        text_file.write(data.encode("latin-1").decode("utf-8"))
-        # text_file.write(str(data.encode('utf-8')))
 
-    # except:
-    #     print("cevirme ")
-    #     pass
+    with open(dic_q_key+'/'+pdf_name, "w") as text_file:
+        text_file.write(data)
+
