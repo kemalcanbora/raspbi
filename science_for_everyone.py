@@ -7,8 +7,10 @@ from pprint import pprint
 from create_pdf import create_pdf_page
 import pandas as pd
 
-def main(q_key):
-    get_information_arxiv(q_key=q_key,f_max_results=10)
+def main(q_key,who_are_u,max_result):
+
+    get_information_arxiv(q_key=q_key,
+                          f_max_results=max_result)
     q_key=q_key.replace(" ","_")
     arr = os.listdir(q_key)
 
@@ -25,28 +27,29 @@ def main(q_key):
     path_z=str(q_key+"_txt")
 
     for i,item in enumerate(arr_txt):
+        print(path_z+"/"+arr_txt[i])
         ozet=lex_summary_2(file_path=path_z+"/"+arr_txt[i])
         print(ozet)
         pdf_link=str(q_key+"_txt"+"/"+arr_txt[i])
         liste.append(ozet)
         pdf_link_lst.append(pdf_link)
         print("-------")
-    #
+
     dataframe=pd.DataFrame({"text":liste,
                             "pdf_link":pdf_link_lst,
                             })
     print(dataframe)
 
-    create_pdf_page(full_name=q_key,address_parts=["kemalcanbora@gmail.com"],metin=dataframe)
+    create_pdf_page(full_name=q_key,address_parts=[who_are_u],metin=dataframe)
 
 
     send_email(
             gmail_user="tuulrik@gmail.com",
-            gmail_pwd="",
-            send_to="kemalcanbora@gmail.com",
+            gmail_pwd=" ",
+            send_to=who_are_u,
             subject= q_key+" özetler",
-            text=" Akademik özet geç ",
+            text="Akademik özet geç ",
             path="form_letter.pdf"
             )
 
-main(q_key="sentiment analysis")
+main("zcash","kemalcanbora@gmail.com",3)
