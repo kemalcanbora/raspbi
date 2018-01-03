@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message inputs {string a = 4 ;
+                string b = 2;
+                int32  c = 5;
+                }
+
+message return_x {repeated string value = 1;}
+
+
+service Calculator {
+    rpc science_for_everyone(inputs)
+    returns (return_x) ;
+}
