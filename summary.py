@@ -19,11 +19,3 @@ def summ(doc_dir_path,ozetlenecek_txt):
     # sentences = nltk.sent_tokenize(sentences)
     summary = lxr.get_summary(sentences, summary_size=15, threshold=.1)
     return (summary)
-
-city = 'Ribeir\ufb02\xa3o Preto'
-# print (city.encode("iso-8859-1").decode("utf-8"))
-# print(city.decode('utf-8').encode('cp850','replace').decode('cp850'))
-
-import json
-a=json.loads(city.read())
-print(a)
