@@ -19,15 +19,16 @@ def lex_summary(file):
         pass
 
 def lex_summary_2(file_path):
-    try:
+    # try:
+        print(file_path)
         with open(file_path) as file:
             data=file.read()
         text = summarize(data,sentence_count=10, language='english')
         a = ''.join(text)
-
+        print(a)
         return (a)
-    except:
-        print("lex_sum_2 hata var")
+    # except:
+    #     print("lex_sum_2 hata var")
 
 
 
