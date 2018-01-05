@@ -3,7 +3,6 @@ from arxiv_f import get_information_arxiv
 from send_mail import send_email
 import os
 from lex_sum import lex_summary_2
-from pprint import pprint
 from create_pdf import create_pdf_page
 import pandas as pd
 
@@ -27,7 +26,6 @@ def main(q_key,who_are_u,max_result):
     path_z=str(q_key+"_txt")
 
     for i,item in enumerate(arr_txt):
-        print(path_z+"/"+arr_txt[i])
         ozet=lex_summary_2(file_path=path_z+"/"+arr_txt[i])
         print(ozet)
         pdf_link=str(q_key+"_txt"+"/"+arr_txt[i])
@@ -40,8 +38,7 @@ def main(q_key,who_are_u,max_result):
                             })
     print(dataframe)
 
-    create_pdf_page(full_name=q_key,address_parts=[who_are_u],metin=dataframe)
-
+    pdf_name = create_pdf_page(full_name=q_key,address_parts=[who_are_u],metin=dataframe)
 
     send_email(
             gmail_user="tuulrik@gmail.com",
@@ -49,7 +46,5 @@ def main(q_key,who_are_u,max_result):
             send_to=who_are_u,
             subject= q_key+" özetler",
             text="Akademik özet geç ",
-            path="form_letter.pdf"
+            path=pdf_name
             )
-
-main("zcash","kemalcanbora@gmail.com",3)

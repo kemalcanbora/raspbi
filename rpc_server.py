@@ -18,11 +18,11 @@ class CalculatorServicer(akademik_pb2_grpc.CalculatorServicer):
         return response
 
 
-server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+server = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
 akademik_pb2_grpc.add_CalculatorServicer_to_server(CalculatorServicer(), server)
 
 print('Starting server. Listening on port 50051.')
-server.add_insecure_port('[::]:50051')
+server.add_insecure_port('127.0.0.1:50051')
 server.start()
 
 try:

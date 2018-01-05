@@ -8,7 +8,6 @@ import os
 
 
 def send_email(gmail_user,gmail_pwd, send_to, subject, text,path):
-
     msg = MIMEMultipart()
     msg['From'] = gmail_user
     msg['To'] = (send_to)
@@ -24,8 +23,8 @@ def send_email(gmail_user,gmail_pwd, send_to, subject, text,path):
     encoders.encode_base64(part)
     part.add_header('Content-Disposition', 'attachment; filename="{0}"'.format(os.path.basename(path)))
     msg.attach(part)
-
     try:
+        print("buraya geldi burası mail kısmı-3")
         server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         server_ssl.ehlo()
         server_ssl.login(gmail_user, gmail_pwd)
